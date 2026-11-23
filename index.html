@@ -1,0 +1,1486 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Thử Thách Lớp 5 - Ôn Tập Hết Tuần 11</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ink-brown: #4d1f28;
+            --pink-bg: #ffd6e8;
+            --pink-bg-light: #ffeaf3;
+            --pink-border: #f3a6c5;
+            --pink-deep: #ec6b9b;
+            --cream-card: #fffdf7;
+            --cream-note: #fff6d1;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            color: var(--ink-brown);
+            background: radial-gradient(circle at 20% 20%, #ffeef6 0%, #ffd6e8 55%, #ffc8e0 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            margin: 0;
+        }
+
+        .font-cartoon {
+            font-family: 'Baloo 2', 'Nunito', cursive;
+        }
+
+        /* Cartoon outline title */
+        .cartoon-title {
+            font-family: 'Baloo 2', cursive;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            -webkit-text-stroke: 2px var(--ink-brown);
+            paint-order: stroke fill;
+            text-shadow: 0 4px 0 rgba(77, 31, 40, 0.25);
+        }
+
+        .cartoon-subtitle {
+            font-family: 'Baloo 2', cursive;
+            font-weight: 800;
+            color: #fff;
+            -webkit-text-stroke: 2px var(--ink-brown);
+            paint-order: stroke fill;
+            text-shadow: 0 3px 0 rgba(77, 31, 40, 0.22);
+        }
+
+        /* Main creamy board matching the reference image */
+        .main-board {
+            background-color: var(--cream-card);
+            border: 5px solid var(--pink-border);
+            border-radius: 32px;
+            box-shadow:
+                0 10px 0 rgba(236, 107, 155, 0.25),
+                0 18px 36px rgba(173, 66, 111, 0.18),
+                inset 0 0 0 4px #ffffff;
+        }
+
+        /* Answer buttons matching the A/B/C/D pill cards */
+        .answer-btn {
+            background: #ffffff;
+            border: 3px solid #f095b6;
+            border-radius: 22px;
+            box-shadow: 0 6px 0 #e67aa3, 0 8px 14px rgba(173, 66, 111, 0.1);
+            color: var(--ink-brown);
+            transition: transform 0.14s ease, box-shadow 0.14s ease, background-color 0.2s ease, border-color 0.2s ease;
+            position: relative;
+        }
+
+        .answer-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            background: #fff5f9;
+            box-shadow: 0 8px 0 #e67aa3, 0 12px 18px rgba(173, 66, 111, 0.14);
+        }
+
+        .answer-btn:active:not(:disabled) {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #e67aa3;
+        }
+
+        .answer-btn.correct {
+            background: linear-gradient(180deg, #ffd1de 0%, #ffb6cb 100%);
+            border: 4px solid #159947;
+            box-shadow: 0 6px 0 #117a38, 0 0 18px rgba(21, 153, 71, 0.28);
+            color: #3a121b;
+        }
+
+        .answer-btn.wrong {
+            background: linear-gradient(180deg, #ffe2e6 0%, #ffc2cb 100%);
+            border: 4px solid #e11d48;
+            box-shadow: 0 6px 0 #be123c;
+            color: #7f1d1d;
+        }
+
+        /* Feedback explanation box */
+        .feedback-box {
+            background: var(--cream-note);
+            border: 3px solid #d99b8c;
+            border-radius: 22px;
+            box-shadow: 0 6px 16px rgba(120, 62, 50, 0.1);
+        }
+
+        /* Coral Arrow Next Button */
+        .next-arrow-btn {
+            background: linear-gradient(180deg, #ff8f7a 0%, #f86a5c 100%);
+            border: 3.5px solid var(--ink-brown);
+            color: #ffffff;
+            text-shadow: 0 2px 0 var(--ink-brown);
+            box-shadow: 0 5px 0 var(--ink-brown);
+            transition: transform 0.12s ease, box-shadow 0.12s ease;
+        }
+
+        .next-arrow-btn:hover {
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 7px 0 var(--ink-brown);
+        }
+
+        .next-arrow-btn:active {
+            transform: translateY(3px) scale(0.98);
+            box-shadow: 0 2px 0 var(--ink-brown);
+        }
+
+        /* Primary playful button */
+        .play-btn {
+            background: linear-gradient(180deg, #ff7eb3 0%, #f45197 100%);
+            border: 3.5px solid var(--ink-brown);
+            box-shadow: 0 6px 0 var(--ink-brown), 0 12px 24px rgba(244, 81, 151, 0.35);
+            color: #fff;
+            text-shadow: 0 2px 0 var(--ink-brown);
+            transition: transform 0.12s ease, box-shadow 0.12s ease;
+        }
+
+        .play-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 0 var(--ink-brown), 0 16px 28px rgba(244, 81, 151, 0.4);
+        }
+
+        .play-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 var(--ink-brown);
+        }
+
+        /* Animations */
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(2deg); }
+        }
+
+        @keyframes floatNote {
+            0%, 100% { transform: translateY(0px) scale(1); opacity: 0.9; }
+            50% { transform: translateY(-6px) scale(1.1); opacity: 1; }
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            70% { transform: scale(1.04); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes dinoBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
+        @keyframes sparklePulse {
+            0%, 100% { transform: scale(0.85) rotate(0deg); opacity: 0.85; }
+            50% { transform: scale(1.2) rotate(18deg); opacity: 1; }
+        }
+
+        .animate-float { animation: floatSlow 5s ease-in-out infinite; }
+        .animate-float-delay { animation: floatSlow 6s ease-in-out 1.5s infinite; }
+        .animate-note { animation: floatNote 2.4s ease-in-out infinite; }
+        .animate-pop { animation: popIn 0.35s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards; }
+        .animate-dino { animation: dinoBounce 1.8s ease-in-out infinite; }
+        .animate-sparkle { animation: sparklePulse 1.4s ease-in-out infinite; }
+
+        /* Subject badges */
+        .badge-toan { background: #e0f2fe; color: #0369a1; border: 2px solid #7dd3fc; }
+        .badge-tiengviet { background: #fef3c7; color: #b45309; border: 2px solid #fcd34d; }
+        .badge-tienganh { background: #f3e8ff; color: #7e22ce; border: 2px solid #d8b4fe; }
+
+        /* Confetti layer */
+        #confetti-canvas {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body class="relative flex flex-col items-center justify-center p-3 sm:p-5 md:p-6 select-none">
+
+    <!-- Confetti Canvas for Celebration -->
+    <canvas id="confetti-canvas" class="hidden"></canvas>
+
+    <!-- ================= BACKGROUND KAWAII DECORATIONS ================= -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden z-0" aria-hidden="true">
+        <!-- Top-Left Rainbow & Fluffy Clouds -->
+        <svg class="absolute -top-2 -left-4 w-44 sm:w-56 md:w-64 opacity-95" viewBox="0 0 240 160" fill="none">
+            <path d="M35 120 C35 55, 165 55, 165 120" stroke="#ff9ebb" stroke-width="14" stroke-linecap="round"/>
+            <path d="M47 120 C47 68, 153 68, 153 120" stroke="#ffe08a" stroke-width="13" stroke-linecap="round"/>
+            <path d="M59 120 C59 80, 141 80, 141 120" stroke="#a6f0c6" stroke-width="12" stroke-linecap="round"/>
+            <path d="M71 120 C71 92, 129 92, 129 120" stroke="#9fd8ff" stroke-width="11" stroke-linecap="round"/>
+            <!-- Left Cloud -->
+            <path d="M22 128 C12 128, 8 114, 18 108 C18 96, 36 90, 46 98 C56 90, 74 96, 74 108 C84 112, 82 128, 70 128 Z" fill="#ffffff" stroke="#7c4d5b" stroke-width="2.5"/>
+            <!-- Right Cloud -->
+            <path d="M126 112 C116 112, 114 98, 124 93 C126 82, 142 78, 152 86 C162 80, 178 86, 178 96 C188 100, 184 112, 174 112 Z" fill="#ffffff" stroke="#7c4d5b" stroke-width="2.5"/>
+        </svg>
+
+        <!-- Bottom-Left Rainbow & Cloud -->
+        <svg class="hidden sm:block absolute -bottom-6 -left-6 w-52 md:w-64 opacity-90" viewBox="0 0 220 180" fill="none">
+            <path d="M10 40 C95 40, 165 100, 165 180" stroke="#ff9ebb" stroke-width="15" stroke-linecap="round"/>
+            <path d="M10 55 C85 55, 150 108, 150 180" stroke="#ffe08a" stroke-width="14" stroke-linecap="round"/>
+            <path d="M10 70 C75 70, 135 116, 135 180" stroke="#a6f0c6" stroke-width="13" stroke-linecap="round"/>
+            <path d="M10 85 C65 85, 120 124, 120 180" stroke="#9fd8ff" stroke-width="12" stroke-linecap="round"/>
+            <path d="M0 180 L0 140 C15 130, 38 134, 48 144 C64 134, 92 140, 102 154 C118 150, 142 156, 152 170 C166 168, 182 174, 184 180 Z" fill="#ffffff" opacity="0.95"/>
+        </svg>
+
+        <!-- Left Floating Open Book -->
+        <svg class="hidden lg:block absolute top-[34%] left-4 w-16 animate-float" viewBox="0 0 80 65" fill="none">
+            <path d="M8 14 C22 10, 34 14, 40 22 C46 14, 58 10, 72 14 L70 54 C56 50, 45 54, 40 60 C35 54, 24 50, 10 54 Z" fill="#fffdf7" stroke="#6c3d4b" stroke-width="2.5" stroke-linejoin="round"/>
+            <path d="M40 22 L40 60" stroke="#6c3d4b" stroke-width="2.5"/>
+            <path d="M16 24 L33 27 M16 33 L33 36 M16 42 L33 45" stroke="#f095b6" stroke-width="2.2" stroke-linecap="round"/>
+            <path d="M64 24 L47 27 M64 33 L47 36 M64 42 L47 45" stroke="#9fd8ff" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>
+
+        <!-- Left Floating Pencil -->
+        <svg class="hidden lg:block absolute top-[58%] left-7 w-11 animate-float-delay" viewBox="0 0 60 60" fill="none">
+            <g transform="rotate(35 30 30)">
+                <rect x="23" y="8" width="14" height="34" rx="2" fill="#ffe08a" stroke="#6c3d4b" stroke-width="2.5"/>
+                <rect x="23" y="4" width="14" height="7" rx="2" fill="#ffa3c2" stroke="#6c3d4b" stroke-width="2.5"/>
+                <polygon points="23,42 37,42 30,54" fill="#ffe6d5" stroke="#6c3d4b" stroke-width="2.5" stroke-linejoin="round"/>
+                <polygon points="28,50 32,50 30,54" fill="#6c3d4b"/>
+            </g>
+        </svg>
+
+        <!-- Right Floating Open Book -->
+        <svg class="hidden lg:block absolute top-[24%] right-4 w-16 animate-float-delay" viewBox="0 0 80 65" fill="none">
+            <g transform="rotate(-14 40 32)">
+                <path d="M8 16 C22 12, 34 16, 40 24 C46 16, 58 12, 72 16 L68 54 C54 50, 45 54, 40 60 C35 54, 24 50, 12 54 Z" fill="#fffdf7" stroke="#6c3d4b" stroke-width="2.5" stroke-linejoin="round"/>
+                <path d="M40 24 L40 60" stroke="#6c3d4b" stroke-width="2.5"/>
+                <path d="M16 26 L33 29 M16 35 L33 38" stroke="#c084fc" stroke-width="2.2" stroke-linecap="round"/>
+                <path d="M63 26 L47 29 M63 35 L47 38" stroke="#f095b6" stroke-width="2.2" stroke-linecap="round"/>
+            </g>
+        </svg>
+
+        <!-- Right Floating Pencil -->
+        <svg class="hidden lg:block absolute top-[45%] right-6 w-12 animate-float" viewBox="0 0 60 60" fill="none">
+            <g transform="rotate(-145 30 30)">
+                <rect x="23" y="8" width="14" height="34" rx="2" fill="#ffe08a" stroke="#6c3d4b" stroke-width="2.5"/>
+                <rect x="23" y="4" width="14" height="7" rx="2" fill="#ffa3c2" stroke="#6c3d4b" stroke-width="2.5"/>
+                <polygon points="23,42 37,42 30,54" fill="#ffe6d5" stroke="#6c3d4b" stroke-width="2.5" stroke-linejoin="round"/>
+                <polygon points="28,50 32,50 30,54" fill="#6c3d4b"/>
+            </g>
+        </svg>
+
+        <!-- Scattered Cute Pastel Stars -->
+        <svg class="absolute top-6 left-[22%] w-6 h-6 animate-sparkle" viewBox="0 0 32 32"><path d="M16 2 L19.8 11.2 L29.5 12 L22.2 18.4 L24.5 28 L16 22.8 L7.5 28 L9.8 18.4 L2.5 12 L12.2 11.2 Z" fill="#ffe066" stroke="#6c3d4b" stroke-width="2" stroke-linejoin="round"/></svg>
+        <svg class="hidden md:block absolute top-8 right-[28%] w-5 h-5 animate-sparkle" style="animation-delay:0.5s" viewBox="0 0 32 32"><path d="M16 2 L19.8 11.2 L29.5 12 L22.2 18.4 L24.5 28 L16 22.8 L7.5 28 L9.8 18.4 L2.5 12 L12.2 11.2 Z" fill="#8ce0ff" stroke="#6c3d4b" stroke-width="2" stroke-linejoin="round"/></svg>
+    </div>
+
+    <!-- ================= MAIN APP WRAPPER ================= -->
+    <div class="relative z-10 w-full max-w-5xl flex flex-col items-center">
+
+        <!-- TOP HEADER BAR (Matches Screenshot) -->
+        <header class="w-full flex flex-col md:flex-row items-center justify-between gap-3 mb-3 md:mb-4 px-1">
+            <!-- Left spacer on desktop to keep title centered -->
+            <div class="hidden md:flex items-center gap-2 w-52">
+                <div id="score-pill" class="hidden items-center gap-1.5 bg-white/95 border-2 border-[#f095b6] rounded-full px-3.5 py-1.5 shadow-sm font-extrabold text-sm text-[#4d1f28]">
+                    <span class="text-lg">⭐</span>
+                    <span>Điểm: <strong id="score-display" class="text-[#e11d48]">0</strong></span>
+                </div>
+            </div>
+
+            <!-- Center Cartoon Title & Pink Ribbon -->
+            <div class="flex flex-col items-center text-center">
+                <div class="flex items-center gap-1.5 sm:gap-2">
+                    <span class="text-xl sm:text-2xl">⭐</span>
+                    <h1 class="cartoon-title text-2xl sm:text-3xl md:text-4xl leading-none tracking-wide">
+                        <span class="text-[#86efac]">THỬ</span>
+                        <span class="text-[#93c5fd]">THÁCH</span>
+                        <span class="text-[#d8b4fe]">LỚP</span>
+                        <span class="text-[#fdba74]">5</span>
+                    </h1>
+                    <span class="text-xl sm:text-2xl">⭐</span>
+                </div>
+                <div class="relative mt-1 flex items-center justify-center">
+                    <span class="hidden sm:inline-block w-5 h-3.5 bg-[#f472b6] border-2 border-[#4d1f28] rounded-l-sm -mr-1.5 rotate-12"></span>
+                    <div class="bg-[#ff85b3] border-[2.5px] border-[#4d1f28] rounded-full px-5 py-0.5 shadow-sm z-10">
+                        <span class="cartoon-subtitle text-sm sm:text-base md:text-lg tracking-wide">ÔN TẬP HẾT TUẦN 11</span>
+                    </div>
+                    <span class="hidden sm:inline-block w-5 h-3.5 bg-[#f472b6] border-2 border-[#4d1f28] rounded-r-sm -ml-1.5 -rotate-12"></span>
+                </div>
+            </div>
+
+            <!-- Top-Right Progress Pill & Star Progress Bar -->
+            <div id="top-hud" class="hidden w-full max-w-xs md:w-52 flex flex-col items-center md:items-end gap-1.5">
+                <div class="flex items-center justify-between md:justify-end gap-2 w-full">
+                    <!-- Mobile score badge -->
+                    <div class="flex md:hidden items-center gap-1 bg-white/95 border-2 border-[#f095b6] rounded-full px-3 py-1 shadow-sm font-extrabold text-xs">
+                        <span>⭐</span> <span id="score-display-mobile" class="text-[#e11d48]">0</span>
+                    </div>
+                    <!-- Question counter pill -->
+                    <div class="flex items-center gap-2 bg-white/95 border-2 border-[#f095b6] rounded-full pl-1.5 pr-3.5 py-1 shadow-sm">
+                        <span class="w-6 h-6 rounded-full bg-[#ff85b3] border-2 border-[#4d1f28] text-white font-black text-xs flex items-center justify-center">?</span>
+                        <span class="font-extrabold text-sm sm:text-base text-[#4d1f28]">
+                            Câu <span id="current-q-num">1</span> / 25
+                        </span>
+                    </div>
+                </div>
+                <!-- Progress Bar with Star Slider -->
+                <div class="relative w-full h-4 bg-white border-2 border-[#4d1f28] rounded-full p-0.5 shadow-inner">
+                    <div id="progress-fill" class="h-full rounded-full bg-gradient-to-r from-[#ff9ebb] to-[#ff6b9d] transition-all duration-500 ease-out" style="width: 4%;"></div>
+                    <div id="progress-star" class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 transition-all duration-500 ease-out pointer-events-none" style="left: 4%;">
+                        <svg class="w-7 h-7 drop-shadow" viewBox="0 0 32 32">
+                            <path d="M16 2 L19.8 11.2 L29.5 12 L22.2 18.4 L24.5 28 L16 22.8 L7.5 28 L9.8 18.4 L2.5 12 L12.2 11.2 Z" fill="#ff9e80" stroke="#4d1f28" stroke-width="2.2" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- ================= START SCREEN ================= -->
+        <section id="start-screen" class="main-board w-full p-6 sm:p-10 text-center flex flex-col items-center justify-center gap-5 animate-pop">
+            <!-- Cute Dino Mascot Preview -->
+            <div class="relative w-32 h-32 sm:w-36 sm:h-36 animate-dino">
+                <svg viewBox="0 0 140 145" class="w-full h-full drop-shadow-md">
+                    <!-- Tail -->
+                    <path d="M102 108 C122 108, 132 95, 128 84 C124 94, 114 96, 102 95 Z" fill="#ff8fab" stroke="#4d1f28" stroke-width="3.5" stroke-linejoin="round"/>
+                    <!-- Spikes -->
+                    <polygon points="112,95 117,87 120,94" fill="#ffe08a" stroke="#4d1f28" stroke-width="2"/>
+                    <polygon points="102,92 108,84 110,93" fill="#ffe08a" stroke="#4d1f28" stroke-width="2"/>
+                    <!-- Body -->
+                    <ellipse cx="70" cy="100" rx="34" ry="32" fill="#ff8fab" stroke="#4d1f28" stroke-width="3.5"/>
+                    <!-- Belly -->
+                    <ellipse cx="70" cy="106" rx="20" ry="22" fill="#fff2b2" stroke="#4d1f28" stroke-width="2.5"/>
+                    <path d="M54 98 Q70 103 86 98 M52 108 Q70 113 88 108 M56 118 Q70 122 84 118" stroke="#e0b86e" stroke-width="2" fill="none"/>
+                    <!-- Arms -->
+                    <path d="M40 94 C26 90, 22 78, 30 74 C36 72, 42 80, 46 86" fill="#ff8fab" stroke="#4d1f28" stroke-width="3.5" stroke-linecap="round"/>
+                    <path d="M100 94 C114 90, 118 78, 110 74 C104 72, 98 80, 94 86" fill="#ff8fab" stroke="#4d1f28" stroke-width="3.5" stroke-linecap="round"/>
+                    <!-- Head -->
+                    <ellipse cx="70" cy="60" rx="33" ry="27" fill="#ff8fab" stroke="#4d1f28" stroke-width="3.5"/>
+                    <!-- Cheeks -->
+                    <ellipse cx="48" cy="66" rx="5.5" ry="3.5" fill="#ff5d8f" opacity="0.5"/>
+                    <ellipse cx="92" cy="66" rx="5.5" ry="3.5" fill="#ff5d8f" opacity="0.5"/>
+                    <!-- Happy Eyes -->
+                    <path d="M52 57 Q57 50 62 57" stroke="#4d1f28" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+                    <path d="M78 57 Q83 50 88 57" stroke="#4d1f28" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+                    <!-- Smile -->
+                    <path d="M59 67 Q70 80 81 67 Z" fill="#a82848" stroke="#4d1f28" stroke-width="2.8" stroke-linejoin="round"/>
+                    <path d="M64 74 Q70 78 76 74" fill="#ff758f"/>
+                    <!-- Graduation Cap -->
+                    <polygon points="70,12 108,26 70,40 32,26" fill="#46444c" stroke="#2d2b30" stroke-width="3" stroke-linejoin="round"/>
+                    <path d="M48 33 L48 44 Q70 50 92 44 L92 33" fill="#35333a" stroke="#2d2b30" stroke-width="2.8"/>
+                    <path d="M102 28 L106 48" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+                    <circle cx="106" cy="50" r="3.5" fill="#fbbf24" stroke="#4d1f28" stroke-width="1.5"/>
+                </svg>
+            </div>
+
+            <div class="space-y-2 max-w-xl">
+                <h2 class="font-cartoon text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#4d1f28]">
+                    Chào mừng bạn nhỏ Lớp 5! 🎉
+                </h2>
+                <p class="text-base sm:text-lg font-bold text-[#6e3a46] leading-relaxed">
+                    Cùng chinh phục <span class="text-[#e11d48]">25 câu hỏi ngẫu nhiên</span> (chọn từ ngân hàng 50 câu) gồm
+                    <span class="inline-block px-2 py-0.5 rounded-lg badge-toan text-sm mx-0.5">Toán</span>
+                    <span class="inline-block px-2 py-0.5 rounded-lg badge-tiengviet text-sm mx-0.5">Tiếng Việt</span>
+                    <span class="inline-block px-2 py-0.5 rounded-lg badge-tienganh text-sm mx-0.5">Tiếng Anh</span>
+                    theo chương trình học <span class="text-[#d946ef]">Tuần 11 năm 2026</span> nhé!
+                </p>
+            </div>
+
+            <!-- Feature highlights -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full max-w-2xl text-sm font-bold text-[#5e2c37]">
+                <div class="bg-[#fff5f9] border-2 border-[#f5b8d0] rounded-2xl p-3 flex items-center justify-center gap-2">
+                    <span class="text-xl">🔀</span> <span>Đảo câu & đáp án mỗi lượt</span>
+                </div>
+                <div class="bg-[#fff8e1] border-2 border-[#f5d08a] rounded-2xl p-3 flex items-center justify-center gap-2">
+                    <span class="text-xl">💡</span> <span>Giải thích chi tiết dễ hiểu</span>
+                </div>
+                <div class="bg-[#f3e8ff] border-2 border-[#d8b4fe] rounded-2xl p-3 flex items-center justify-center gap-2">
+                    <span class="text-xl">🎵</span> <span>Âm thanh vui nhộn hấp dẫn</span>
+                </div>
+            </div>
+
+            <button onclick="startGame()" class="play-btn mt-2 px-10 py-4 rounded-full font-cartoon text-2xl sm:text-3xl tracking-wide cursor-pointer">
+                BẮT ĐẦU NGAY! 🚀
+            </button>
+        </section>
+
+        <!-- ================= GAME SCREEN ================= -->
+        <section id="game-screen" class="hidden w-full relative">
+            <div class="main-board w-full p-4 sm:p-6 md:p-8 relative">
+
+                <!-- Subject Pill & Question Text -->
+                <div class="flex flex-col items-center text-center mb-5 sm:mb-6">
+                    <span id="subject-badge" class="px-3.5 py-1 rounded-full text-xs sm:text-sm font-extrabold uppercase tracking-wider mb-2.5 shadow-sm">
+                        Toán Lớp 5
+                    </span>
+                    <h2 id="question-text" class="text-xl sm:text-2xl md:text-[28px] font-black text-[#4d1f28] leading-snug max-w-3xl">
+                        <!-- Question text injected here -->
+                    </h2>
+                </div>
+
+                <!-- 2x2 Options Grid (A, B, C, D) -->
+                <div id="options-container" class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-5 w-full max-w-3xl mx-auto">
+                    <!-- Buttons injected by JS -->
+                </div>
+
+                <!-- Inline Feedback + Baby Dino Mascot Row (Matches Reference Image!) -->
+                <div id="feedback-area" class="hidden mt-5 sm:mt-6 pt-1 animate-pop">
+                    <div class="flex flex-col md:flex-row items-center md:items-end justify-between gap-4">
+                        
+                        <!-- Warm Cream Explanation Bubble -->
+                        <div class="feedback-box flex-1 w-full p-4 sm:p-5 text-left relative">
+                            <div id="feedback-header" class="font-extrabold text-lg sm:text-xl mb-1.5 flex items-center gap-2">
+                                <!-- 🎉 CHÍNH XÁC RỒI! -->
+                            </div>
+                            <p id="feedback-explanation" class="text-sm sm:text-base md:text-[17px] font-bold text-[#52242d] leading-relaxed">
+                                <!-- Explanation text -->
+                            </p>
+                        </div>
+
+                        <!-- Mascot + Speech Bubble + Next Arrow Button -->
+                        <div class="flex items-end justify-center md:justify-end gap-2 sm:gap-3 shrink-0 w-full md:w-auto">
+                            <!-- Baby Dino with Speech Bubble -->
+                            <div class="relative flex flex-col items-center">
+                                <!-- Comic Speech Bubble -->
+                                <div id="dino-speech" class="mb-1 bg-white border-[2.5px] border-[#4d1f28] rounded-2xl px-3 py-1 text-xs sm:text-sm font-extrabold text-[#4d1f28] shadow-sm whitespace-nowrap relative">
+                                    Tuyệt vời quá bạn ơi!
+                                    <span class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-3 h-3 bg-white border-r-[2.5px] border-b-[2.5px] border-[#4d1f28] rotate-45"></span>
+                                </div>
+                                <!-- Dino SVG -->
+                                <svg id="dino-svg" viewBox="0 0 140 145" class="w-24 h-24 sm:w-28 sm:h-28 animate-dino drop-shadow-sm">
+                                    <!-- Tail -->
+                                    <path d="M102 108 C122 108, 132 95, 128 84 C124 94, 114 96, 102 95 Z" fill="#ff8fab" stroke="#4d1f28" stroke-width="3.5" stroke-linejoin="round"/>
+                                    <polygon points="112,95 117,87 120,94" fill="#ffe08a" stroke="#4d1f28" stroke-width="2"/>
+                                    <polygon points="102,92 108,84 110,93" fill="#ffe08a" stroke="#4d1f28" stroke-width="2"/>
+                                    <!-- Body -->
+                                    <ellipse cx="70" cy="100" rx="34" ry="32" fill="#ff8fab" stroke="#4d1f28" stroke-width="3.5"/>
+                                    <ellipse cx="70" cy="106" rx="20" ry="22" fill="#fff2b2" stroke="#4d1f28" stroke-width="2.5"/>
+                                    <path d="M54 98 Q70 103 86 98 M52 108 Q70 113 88 108 M56 118 Q70 122 84 118" stroke="#e0b86e" stroke-width="2" fill="none"/>
+                                    <!-- Arms -->
+                                    <path d="M40 94 C26 90, 22 78, 30 74 C36 72, 42 80, 46 86" fill="#ff8fab" stroke="#4d1f28" stroke-width="3.5" stroke-linecap="round"/>
+                                    <path d="M100 94 C114 90, 118 78, 110 74 C104 72, 98 80, 94 86" fill="#ff8fab" stroke="#4d1f28" stroke-width="3.5" stroke-linecap="round"/>
+                                    <!-- Head -->
+                                    <ellipse cx="70" cy="60" rx="33" ry="27" fill="#ff8fab" stroke="#4d1f28" stroke-width="3.5"/>
+                                    <ellipse cx="48" cy="66" rx="5.5" ry="3.5" fill="#ff5d8f" opacity="0.5"/>
+                                    <ellipse cx="92" cy="66" rx="5.5" ry="3.5" fill="#ff5d8f" opacity="0.5"/>
+                                    <!-- Dynamic Eyes -->
+                                    <g id="dino-eyes-happy">
+                                        <path d="M52 57 Q57 50 62 57" stroke="#4d1f28" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+                                        <path d="M78 57 Q83 50 88 57" stroke="#4d1f28" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+                                    </g>
+                                    <g id="dino-eyes-encourage" class="hidden">
+                                        <circle cx="57" cy="55" r="4" fill="#4d1f28"/>
+                                        <circle cx="58.5" cy="53.5" r="1.4" fill="#fff"/>
+                                        <circle cx="83" cy="55" r="4" fill="#4d1f28"/>
+                                        <circle cx="84.5" cy="53.5" r="1.4" fill="#fff"/>
+                                    </g>
+                                    <!-- Dynamic Mouth -->
+                                    <path id="dino-mouth-happy" d="M59 67 Q70 80 81 67 Z" fill="#a82848" stroke="#4d1f28" stroke-width="2.8" stroke-linejoin="round"/>
+                                    <path id="dino-mouth-encourage" class="hidden" d="M62 71 Q70 67 78 71" stroke="#4d1f28" stroke-width="3" stroke-linecap="round" fill="none"/>
+                                    <!-- Graduation Cap -->
+                                    <polygon points="70,12 108,26 70,40 32,26" fill="#46444c" stroke="#2d2b30" stroke-width="3" stroke-linejoin="round"/>
+                                    <path d="M48 33 L48 44 Q70 50 92 44 L92 33" fill="#35333a" stroke="#2d2b30" stroke-width="2.8"/>
+                                    <path d="M102 28 L106 48" stroke="#fbbf24" stroke-width="3" stroke-linecap="round"/>
+                                    <circle cx="106" cy="50" r="3.5" fill="#fbbf24" stroke="#4d1f28" stroke-width="1.5"/>
+                                </svg>
+                            </div>
+
+                            <!-- Coral Arrow "TIẾP TỤC" Button -->
+                            <button onclick="nextQuestion()" id="next-btn" class="next-arrow-btn rounded-2xl px-5 sm:px-6 py-3 sm:py-3.5 font-cartoon text-lg sm:text-xl flex items-center gap-1.5 cursor-pointer mb-2">
+                                <span id="next-btn-label">TIẾP TỤC</span>
+                                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M5 12h14M13 5l7 7-7 7"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= END SCREEN ================= -->
+        <section id="end-screen" class="hidden main-board w-full p-6 sm:p-10 text-center flex-col items-center justify-center gap-5 animate-pop">
+            <div class="text-6xl sm:text-7xl animate-dino">🏆🌟🎉</div>
+            <h2 class="font-cartoon text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#e11d48]">
+                Hoàn Thành Thử Thách!
+            </h2>
+
+            <div class="bg-[#fff6d1] border-[3px] border-[#e5a898] rounded-3xl px-8 py-5 shadow-sm">
+                <p class="text-base sm:text-lg font-bold text-[#6e3a46] mb-1">Kết quả của bé:</p>
+                <div class="font-cartoon text-5xl sm:text-6xl font-extrabold text-[#4d1f28]">
+                    <span id="final-score" class="text-[#16a34a]">0</span>
+                    <span class="text-3xl text-[#9c5a69]">/ 25 câu</span>
+                </div>
+                <p id="final-accuracy" class="text-sm sm:text-base font-extrabold text-[#d946ef] mt-1"></p>
+            </div>
+
+            <p id="end-message" class="text-lg sm:text-xl font-extrabold text-[#4d1f28] max-w-lg"></p>
+
+            <button onclick="startGame()" class="play-btn mt-2 px-10 py-4 rounded-full font-cartoon text-2xl sm:text-3xl cursor-pointer">
+                CHƠI LẠI BỘ CÂU MỚI 🔄
+            </button>
+            <p class="text-xs sm:text-sm font-bold text-[#8a4f5e]">
+                (Mỗi lượt chơi sẽ tự động chọn ngẫu nhiên 25 câu mới & đảo vị trí A, B, C, D)
+            </p>
+        </section>
+
+    </div>
+
+    <!-- ================= BOTTOM-LEFT INTERACTIVE CUTE SPEAKER (SOUND TOGGLE) ================= -->
+    <button id="sound-toggle-btn" onclick="toggleSound()" title="Bật / Tắt âm thanh"
+        class="fixed bottom-3 left-3 sm:bottom-5 sm:left-5 z-30 flex items-center gap-1.5 bg-white/85 hover:bg-white border-2 border-[#4d1f28] rounded-2xl p-2 shadow-md transition-transform hover:scale-105 active:scale-95 cursor-pointer">
+        <!-- Cute Pink Speaker SVG matching screenshot -->
+        <svg class="w-10 h-10 sm:w-11 sm:h-11" viewBox="0 0 64 64" fill="none">
+            <rect x="10" y="10" width="38" height="46" rx="8" fill="#f7a8be" stroke="#4d1f28" stroke-width="3"/>
+            <rect x="16" y="16" width="26" height="34" rx="5" fill="#ffd2df" stroke="#4d1f28" stroke-width="2"/>
+            <circle cx="29" cy="24" r="4" fill="#6b5b6e" stroke="#4d1f28" stroke-width="2"/>
+            <circle cx="29" cy="39" r="8.5" fill="#6b5b6e" stroke="#4d1f28" stroke-width="2.5"/>
+            <circle cx="29" cy="39" r="3.5" fill="#4d1f28"/>
+            <!-- Sound Notes (hidden when muted) -->
+            <g id="speaker-notes" class="animate-note">
+                <path d="M51 16 L51 28 M51 16 L59 14 L59 26" stroke="#4d1f28" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="49" cy="28" r="2.5" fill="#4d1f28"/>
+                <circle cx="57" cy="26" r="2.5" fill="#4d1f28"/>
+            </g>
+            <!-- Mute Slash (shown when muted) -->
+            <line id="speaker-mute-line" class="hidden" x1="12" y1="54" x2="54" y2="12" stroke="#e11d48" stroke-width="4.5" stroke-linecap="round"/>
+        </svg>
+    </button>
+
+    <script>
+        // =========================================================================
+        // NGÂN HÀNG 50 CÂU HỎI LỚP 5 - TUẦN 11 (CHƯƠNG TRÌNH 2026 - GDPT 2018)
+        // Gồm: 17 câu Toán + 17 câu Tiếng Việt + 16 câu Tiếng Anh = 50 câu
+        // =========================================================================
+        const questionBank = [
+            // ---------------------- TOÁN LỚP 5 (17 CÂU) ----------------------
+            {
+                subject: 'Toán',
+                text: 'Kết quả của phép tính 12,5 + 7,35 là bao nhiêu?',
+                options: [
+                    { text: '19,85', isCorrect: true },
+                    { text: '19,40', isCorrect: false },
+                    { text: '20,85', isCorrect: false },
+                    { text: '18,85', isCorrect: false }
+                ],
+                explanation: 'Ta viết 12,5 thành 12,50 rồi cộng thẳng cột các hàng: 12,50 + 7,35 = 19,85.'
+            },
+            {
+                subject: 'Toán',
+                text: 'Kết quả của phép trừ 45,6 − 18,25 là:',
+                options: [
+                    { text: '27,35', isCorrect: true },
+                    { text: '27,45', isCorrect: false },
+                    { text: '26,35', isCorrect: false },
+                    { text: '28,35', isCorrect: false }
+                ],
+                explanation: 'Ta viết 45,6 thành 45,60 rồi thực hiện phép trừ: 45,60 − 18,25 = 27,35.'
+            },
+            {
+                subject: 'Toán',
+                text: 'Giá trị của chữ số 7 trong số thập phân 34,275 là:',
+                options: [
+                    { text: '7/100', isCorrect: true },
+                    { text: '7/10', isCorrect: false },
+                    { text: '7/1000', isCorrect: false },
+                    { text: '70', isCorrect: false }
+                ],
+                explanation: 'Trong số 34,275, chữ số 7 đứng ở hàng phần trăm nên có giá trị là 7/100 (hay 0,07).'
+            },
+            {
+                subject: 'Toán',
+                text: 'Viết số đo 5m 8cm dưới dạng số thập phân với đơn vị mét:',
+                options: [
+                    { text: '5,08 m', isCorrect: true },
+                    { text: '5,8 m', isCorrect: false },
+                    { text: '5,008 m', isCorrect: false },
+                    { text: '50,8 m', isCorrect: false }
+                ],
+                explanation: 'Vì 1m = 100cm nên 8cm = 8/100 m = 0,08m. Do đó 5m 8cm = 5,08m.'
+            },
+            {
+                subject: 'Toán',
+                text: 'Tính nhanh giá trị biểu thức: 4,8 + 6,5 + 5,2',
+                options: [
+                    { text: '16,5', isCorrect: true },
+                    { text: '15,5', isCorrect: false },
+                    { text: '17,5', isCorrect: false },
+                    { text: '16,0', isCorrect: false }
+                ],
+                explanation: 'Áp dụng tính chất giao hoán và kết hợp: (4,8 + 5,2) + 6,5 = 10 + 6,5 = 16,5.'
+            },
+            {
+                subject: 'Toán',
+                text: 'Dấu thích hợp điền vào chỗ chấm: 28,4 ... 28,39 là:',
+                options: [
+                    { text: '>', isCorrect: true },
+                    { text: '<', isCorrect: false },
+                    { text: '=', isCorrect: false },
+                    { text: 'Không so sánh được', isCorrect: false }
+                ],
+                explanation: 'Hai số có cùng phần nguyên là 28. Xét hàng phần mười: 4 > 3 nên 28,4 > 28,39.'
+            },
+            {
+                subject: 'Toán',
+                text: 'Số thập phân gồm "ba mươi hai đơn vị, chín phần nghìn" được viết là:',
+                options: [
+                    { text: '32,009', isCorrect: true },
+                    { text: '32,09', isCorrect: false },
+                    { text: '32,9', isCorrect: false },
+                    { text: '320,09', isCorrect: false }
+                ],
+                explanation: 'Phần nguyên là 32; phần thập phân có 0 phần mười, 0 phần trăm và 9 phần nghìn nên viết là 32,009.'
+            },
+            {
+                subject: 'Toán',
+                text: 'Đổi đơn vị đo khối lượng: 3 tấn 45 kg = ... tấn',
+                options: [
+                    { text: '3,045', isCorrect: true },
+                    { text: '3,45', isCorrect: false },
+                    { text: '30,45', isCorrect: false },
+                    { text: '3,0045', isCorrect: false }
+                ],
+                explanation: 'Vì 1 tấn = 1000 kg nên 45 kg = 45/1000 tấn = 0,045 tấn. Vậy 3 tấn 45 kg = 3,045 tấn.'
+            },
+            {
+                subject: 'Toán',
+                text: 'Tính nhẩm: 15,4 × 10 = ?',
+                options: [
+                    { text: '154', isCorrect: true },
+                    { text: '1,54', isCorrect: false },
+                    { text: '1540', isCorrect: false },
+                    { text: '15,40', isCorrect: false }
+                ],
+                explanation: 'Khi nhân một số thập phân với 10, ta chỉ cần chuyển dấu phẩy sang bên phải một chữ số: 15,4 × 10 = 154.'
+            },
+            {
+                subject: 'Toán',
+                text: 'Tính nhẩm: 2,35 × 100 = ?',
+                options: [
+                    { text: '235', isCorrect: true },
+                    { text: '23,5', isCorrect: false },
+                    { text: '2350', isCorrect: false },
+                    { text: '0,235', isCorrect: false }
+                ],
+                explanation: 'Nhân một số thập phân với 100, ta chuyển dấu phẩy sang bên phải hai chữ số nên được 235.'
+            },
+            {
+                subject: 'Toán',
+                text: 'Kết quả của phép nhân 3,4 × 5 là:',
+                options: [
+                    { text: '17', isCorrect: true },
+                    { text: '1,7', isCorrect: false },
+                    { text: '170', isCorrect: false },
+                    { text: '16,5', isCorrect: false }
+                ],
+                explanation: 'Ta nhân như số tự nhiên: 34 × 5 = 170. Phần thập phân có 1 chữ số nên tách ra được 17,0 = 17.'
+            },
+            {
+                subject: 'Toán',
+                text: 'Tìm x biết: x + 14,5 = 30',
+                options: [
+                    { text: 'x = 15,5', isCorrect: true },
+                    { text: 'x = 16,5', isCorrect: false },
+                    { text: 'x = 44,5', isCorrect: false },
+                    { text: 'x = 14,5', isCorrect: false }
+                ],
+                explanation: 'Muốn tìm số hạng chưa biết, ta lấy tổng trừ đi số hạng đã biết: x = 30 − 14,5 = 15,5.'
+            },
+            {
+                subject: 'Toán',
+                text: 'Đổi đơn vị đo diện tích: 4 ha = ... m²',
+                options: [
+                    { text: '40 000 m²', isCorrect: true },
+                    { text: '4 000 m²', isCorrect: false },
+                    { text: '400 m²', isCorrect: false },
+                    { text: '400 000 m²', isCorrect: false }
+                ],
+                explanation: 'Ta nhớ 1 héc-ta (ha) = 10 000 m², nên 4 ha = 4 × 10 000 = 40 000 m².'
+            },
+            {
+                subject: 'Toán',
+                text: 'Một hình chữ nhật có chiều dài 8,5m và chiều rộng 4,5m. Chu vi hình chữ nhật đó là:',
+                options: [
+                    { text: '26 m', isCorrect: true },
+                    { text: '13 m', isCorrect: false },
+                    { text: '24 m', isCorrect: false },
+                    { text: '28 m', isCorrect: false }
+                ],
+                explanation: 'Chu vi hình chữ nhật = (chiều dài + chiều rộng) × 2 = (8,5 + 4,5) × 2 = 13 × 2 = 26 (m).'
+            },
+            {
+                subject: 'Toán',
+                text: 'Làm tròn số thập phân 16,47 đến hàng phần mười ta được:',
+                options: [
+                    { text: '16,5', isCorrect: true },
+                    { text: '16,4', isCorrect: false },
+                    { text: '17', isCorrect: false },
+                    { text: '16', isCorrect: false }
+                ],
+                explanation: 'Chữ số hàng phần trăm là 7 (lớn hơn hoặc bằng 5) nên ta làm tròn lên thành 16,5.'
+            },
+            {
+                subject: 'Toán',
+                text: 'Một bao gạo nặng 25,5 kg. Người ta lấy ra 9,8 kg. Trong bao còn lại bao nhiêu ki-lô-gam gạo?',
+                options: [
+                    { text: '15,7 kg', isCorrect: true },
+                    { text: '16,7 kg', isCorrect: false },
+                    { text: '15,3 kg', isCorrect: false },
+                    { text: '14,7 kg', isCorrect: false }
+                ],
+                explanation: 'Số gạo còn lại trong bao là: 25,5 − 9,8 = 15,7 (kg).'
+            },
+            {
+                subject: 'Toán',
+                text: 'Phân số thập phân 75/1000 viết dưới dạng số thập phân là:',
+                options: [
+                    { text: '0,075', isCorrect: true },
+                    { text: '0,75', isCorrect: false },
+                    { text: '7,5', isCorrect: false },
+                    { text: '0,0075', isCorrect: false }
+                ],
+                explanation: 'Mẫu số là 1000 có 3 chữ số 0 nên phần thập phân có 3 chữ số: 75/1000 = 0,075.'
+            },
+
+            // -------------------- TIẾNG VIỆT LỚP 5 (17 CÂU) --------------------
+            {
+                subject: 'Tiếng Việt',
+                text: 'Từ nào dưới đây đồng nghĩa với từ "bền chắc"?',
+                options: [
+                    { text: 'bền vững', isCorrect: true },
+                    { text: 'bền chặt', isCorrect: false },
+                    { text: 'bền bỉ', isCorrect: false },
+                    { text: 'bền chí', isCorrect: false }
+                ],
+                explanation: '“Bền vững” và “bền chắc” đều chỉ tính chất chắc chắn, khó bị phá vỡ hay thay đổi theo thời gian, nên chúng là hai từ đồng nghĩa đó!'
+            },
+            {
+                subject: 'Tiếng Việt',
+                text: 'Trong câu: "Nam học rất giỏi, bạn ấy luôn giúp đỡ mọi người.", từ "bạn ấy" thuộc từ loại nào?',
+                options: [
+                    { text: 'Đại từ', isCorrect: true },
+                    { text: 'Động từ', isCorrect: false },
+                    { text: 'Tính từ', isCorrect: false },
+                    { text: 'Kết từ', isCorrect: false }
+                ],
+                explanation: 'Từ "bạn ấy" dùng để thay thế cho danh từ "Nam" đã nêu ở vế trước để tránh lặp từ, nên nó là Đại từ.'
+            },
+            {
+                subject: 'Tiếng Việt',
+                text: 'Từ "chạy" trong câu nào dưới đây được dùng với nghĩa gốc?',
+                options: [
+                    { text: 'Em bé chạy tung tăng ngoài sân.', isCorrect: true },
+                    { text: 'Chiếc đồng hồ vẫn chạy rất đúng giờ.', isCorrect: false },
+                    { text: 'Tàu hỏa đang chạy về phía ga.', isCorrect: false },
+                    { text: 'Cửa hàng này bán rất chạy hàng.', isCorrect: false }
+                ],
+                explanation: 'Nghĩa gốc của từ "chạy" chỉ hoạt động di chuyển nhanh bằng chân của người hoặc động vật.'
+            },
+            {
+                subject: 'Tiếng Việt',
+                text: 'Từ nào dưới đây đồng nghĩa với từ "bảo vệ"?',
+                options: [
+                    { text: 'gìn giữ', isCorrect: true },
+                    { text: 'xây dựng', isCorrect: false },
+                    { text: 'phá hủy', isCorrect: false },
+                    { text: 'khai thác', isCorrect: false }
+                ],
+                explanation: '"Gìn giữ" và "bảo vệ" đều có nghĩa là giữ cho khỏi bị hư hại, mất mát hay xâm phạm.'
+            },
+            {
+                subject: 'Tiếng Việt',
+                text: 'Trong câu: "Vì trời mưa to nên đường rất trơn.", cặp kết từ "Vì... nên..." biểu thị quan hệ gì?',
+                options: [
+                    { text: 'Nguyên nhân – Kết quả', isCorrect: true },
+                    { text: 'Điều kiện – Kết quả', isCorrect: false },
+                    { text: 'Tương phản', isCorrect: false },
+                    { text: 'Tăng tiến', isCorrect: false }
+                ],
+                explanation: '"Vì trời mưa to" nêu nguyên nhân dẫn đến kết quả là "đường rất trơn".'
+            },
+            {
+                subject: 'Tiếng Việt',
+                text: 'Từ "mũi" trong cụm từ nào sau đây mang nghĩa chuyển?',
+                options: [
+                    { text: 'Mũi thuyền', isCorrect: true },
+                    { text: 'Sống mũi cao', isCorrect: false },
+                    { text: 'Cánh mũi', isCorrect: false },
+                    { text: 'Đầu mũi đỏ ửng', isCorrect: false }
+                ],
+                explanation: 'Nghĩa gốc của "mũi" là bộ phận trên mặt dùng để thở và ngửi; "mũi thuyền" chỉ phần nhọn nhô ra phía trước chiếc thuyền (nghĩa chuyển).'
+            },
+            {
+                subject: 'Tiếng Việt',
+                text: 'Dòng nào dưới đây chỉ gồm các từ viết ĐÚNG chính tả?',
+                options: [
+                    { text: 'xanh xao, chia sẻ, trung thực', isCorrect: true },
+                    { text: 'xương sớm, chia sẽ, trung thực', isCorrect: false },
+                    { text: 'sanh sao, chia sẻ, chung thực', isCorrect: false },
+                    { text: 'xanh xao, chia sẽ, trân thành', isCorrect: false }
+                ],
+                explanation: 'Các từ "xanh xao", "chia sẻ" (dấu hỏi), "trung thực" đều viết đúng chính tả chuẩn tiếng Việt.'
+            },
+            {
+                subject: 'Tiếng Việt',
+                text: 'Trong câu: "Tuy nhà xa nhưng Lan luôn đi học đúng giờ.", cặp kết từ "Tuy... nhưng..." biểu thị quan hệ gì?',
+                options: [
+                    { text: 'Tương phản', isCorrect: true },
+                    { text: 'Nguyên nhân – Kết quả', isCorrect: false },
+                    { text: 'Giả thiết – Kết quả', isCorrect: false },
+                    { text: 'Tăng tiến', isCorrect: false }
+                ],
+                explanation: 'Cặp kết từ "Tuy... nhưng..." nối hai vế câu có ý nghĩa đối lập, tương phản với nhau.'
+            },
+            {
+                subject: 'Tiếng Việt',
+                text: 'Từ nào dưới đây trái nghĩa với từ "cẩn thận"?',
+                options: [
+                    { text: 'cẩu thả', isCorrect: true },
+                    { text: 'tỉ mỉ', isCorrect: false },
+                    { text: 'chu đáo', isCorrect: false },
+                    { text: 'chăm chỉ', isCorrect: false }
+                ],
+                explanation: '"Cẩu thả" là làm việc qua loa, thiếu chu đáo, trái nghĩa hoàn toàn với "cẩn thận".'
+            },
+            {
+                subject: 'Tiếng Việt',
+                text: 'Nhóm đại từ xưng hô nào thể hiện thái độ lễ phép, tôn trọng với người lớn tuổi?',
+                options: [
+                    { text: 'cháu, em, con', isCorrect: true },
+                    { text: 'tớ, cậu, mình', isCorrect: false },
+                    { text: 'tao, mày, hắn', isCorrect: false },
+                    { text: 'nó, bọn nó, chúng nó', isCorrect: false }
+                ],
+                explanation: 'Khi giao tiếp với người lớn tuổi hơn, ta dùng các đại từ xưng hô lễ phép như "cháu, em, con".'
+            },
+            {
+                subject: 'Tiếng Việt',
+                text: 'Từ nào sau đây KHÔNG cùng nhóm nghĩa với các từ còn lại?',
+                options: [
+                    { text: 'nhộn nhịp', isCorrect: true },
+                    { text: 'mênh mông', isCorrect: false },
+                    { text: 'bát ngát', isCorrect: false },
+                    { text: 'bao la', isCorrect: false }
+                ],
+                explanation: '"Mênh mông, bát ngát, bao la" đều miêu tả không gian rộng lớn; còn "nhộn nhịp" miêu tả cảnh đông vui, nhiều âm thanh.'
+            },
+            {
+                subject: 'Tiếng Việt',
+                text: 'Dấu gạch ngang trong câu: "Hà Nội – thủ đô ngàn năm văn hiến – rất đẹp." có tác dụng gì?',
+                options: [
+                    { text: 'Đánh dấu phần chú thích trong câu', isCorrect: true },
+                    { text: 'Đánh dấu lời nói trực tiếp của nhân vật', isCorrect: false },
+                    { text: 'Đánh dấu các ý trong một đoạn liệt kê', isCorrect: false },
+                    { text: 'Nối các từ nằm trong một liên danh', isCorrect: false }
+                ],
+                explanation: 'Cụm từ "thủ đô ngàn năm văn hiến" giải thích, chú thích thêm cho danh từ "Hà Nội" đứng trước nó.'
+            },
+            {
+                subject: 'Tiếng Việt',
+                text: 'Câu tục ngữ nào dưới đây khuyên chúng ta phải biết đoàn kết?',
+                options: [
+                    { text: 'Một cây làm chẳng nên non', isCorrect: true },
+                    { text: 'Có công mài sắt, có ngày nên kim', isCorrect: false },
+                    { text: 'Uống nước nhớ nguồn', isCorrect: false },
+                    { text: 'Đói cho sạch, rách cho thơm', isCorrect: false }
+                ],
+                explanation: '"Một cây làm chẳng nên non / Ba cây chụm lại nên hòn núi cao" khuyên mọi người biết đoàn kết để tạo nên sức mạnh.'
+            },
+            {
+                subject: 'Tiếng Việt',
+                text: 'Từ "ăn" trong câu nào dưới đây mang nghĩa chuyển?',
+                options: [
+                    { text: 'Con tàu đang ăn hàng ở bến cảng.', isCorrect: true },
+                    { text: 'Cả nhà em quây quần ăn cơm tối.', isCorrect: false },
+                    { text: 'Chú mèo đang ăn cá rất ngon lành.', isCorrect: false },
+                    { text: 'Bé ăn hết một quả táo đỏ.', isCorrect: false }
+                ],
+                explanation: 'Nghĩa gốc là đưa thức ăn vào miệng; "tàu ăn hàng" chỉ việc tàu tiếp nhận hàng hóa vào khoang nên là nghĩa chuyển.'
+            },
+            {
+                subject: 'Tiếng Việt',
+                text: 'Trong câu: "Chiều nay, lớp em đi trồng cây ở công viên.", bộ phận trạng ngữ là:',
+                options: [
+                    { text: 'Chiều nay', isCorrect: true },
+                    { text: 'lớp em', isCorrect: false },
+                    { text: 'đi trồng cây', isCorrect: false },
+                    { text: 'ở công viên', isCorrect: false }
+                ],
+                explanation: '"Chiều nay" đứng đầu câu và ngăn cách bởi dấu phẩy, là trạng ngữ chỉ thời gian diễn ra sự việc.'
+            },
+            {
+                subject: 'Tiếng Việt',
+                text: 'Điền từ còn thiếu vào câu tục ngữ: "Đi một ngày đàng, học một sàng ..."',
+                options: [
+                    { text: 'khôn', isCorrect: true },
+                    { text: 'ngoan', isCorrect: false },
+                    { text: 'vui', isCorrect: false },
+                    { text: 'hay', isCorrect: false }
+                ],
+                explanation: 'Câu tục ngữ "Đi một ngày đàng, học một sàng khôn" khuyên ta đi nhiều, trải nghiệm nhiều để mở mang kiến thức.'
+            },
+            {
+                subject: 'Tiếng Việt',
+                text: 'Các từ chỉ lượng "những, các, mọi" thường đứng trước từ loại nào?',
+                options: [
+                    { text: 'Danh từ', isCorrect: true },
+                    { text: 'Động từ', isCorrect: false },
+                    { text: 'Tính từ', isCorrect: false },
+                    { text: 'Kết từ', isCorrect: false }
+                ],
+                explanation: '"Những, các, mọi" luôn đi kèm đứng trước danh từ (ví dụ: những bông hoa, các bạn học sinh, mọi người).'
+            },
+
+            // -------------------- TIẾNG ANH LỚP 5 (16 CÂU) --------------------
+            {
+                subject: 'Tiếng Anh',
+                text: 'Choose the correct answer: "What is your favourite school activity?" – "I like ______."',
+                options: [
+                    { text: 'solving maths problems', isCorrect: true },
+                    { text: 'solve maths problems', isCorrect: false },
+                    { text: 'solves maths problems', isCorrect: false },
+                    { text: 'solved maths problems', isCorrect: false }
+                ],
+                explanation: 'Sau động từ "like" ta dùng động từ thêm đuôi "-ing": "solving maths problems" (giải các bài toán).'
+            },
+            {
+                subject: 'Tiếng Anh',
+                text: 'Complete the sentence: "Where are the pencils?" – "They are ______ the pencil case."',
+                options: [
+                    { text: 'in', isCorrect: true },
+                    { text: 'at', isCorrect: false },
+                    { text: 'from', isCorrect: false },
+                    { text: 'with', isCorrect: false }
+                ],
+                explanation: '"in the pencil case" nghĩa là ở bên trong hộp bút.'
+            },
+            {
+                subject: 'Tiếng Anh',
+                text: 'Choose the correct question word: "______ crayon is this?" – "It’s Linh’s."',
+                options: [
+                    { text: 'Whose', isCorrect: true },
+                    { text: 'Who', isCorrect: false },
+                    { text: 'Where', isCorrect: false },
+                    { text: 'What', isCorrect: false }
+                ],
+                explanation: 'Ta dùng "Whose" (Của ai) để hỏi đồ vật đó thuộc quyền sở hữu của ai.'
+            },
+            {
+                subject: 'Tiếng Anh',
+                text: 'Odd one out (Chọn từ khác loại với các từ còn lại):',
+                options: [
+                    { text: 'library', isCorrect: true },
+                    { text: 'crayon', isCorrect: false },
+                    { text: 'glue stick', isCorrect: false },
+                    { text: 'set square', isCorrect: false }
+                ],
+                explanation: 'Crayon (bút sáp màu), glue stick (keo dán), set square (ê-ke) đều là đồ dùng học tập; còn "library" là thư viện (địa điểm).'
+            },
+            {
+                subject: 'Tiếng Anh',
+                text: 'Choose the right word: "Why do you like reading books?" – "______ it is interesting."',
+                options: [
+                    { text: 'Because', isCorrect: true },
+                    { text: 'But', isCorrect: false },
+                    { text: 'And', isCorrect: false },
+                    { text: 'Or', isCorrect: false }
+                ],
+                explanation: 'Câu hỏi bắt đầu bằng "Why" (Tại sao) thì câu trả lời dùng "Because" (Bởi vì).'
+            },
+            {
+                subject: 'Tiếng Anh',
+                text: 'Complete the sentence: "The map is ______ the board."',
+                options: [
+                    { text: 'beside', isCorrect: true },
+                    { text: 'next', isCorrect: false },
+                    { text: 'in front', isCorrect: false },
+                    { text: 'under of', isCorrect: false }
+                ],
+                explanation: '"beside" (ở bên cạnh) đi trực tiếp với danh từ. Các đáp án khác thiếu giới từ đi kèm ("next to", "in front of").'
+            },
+            {
+                subject: 'Tiếng Anh',
+                text: 'What does "set square" mean in Vietnamese?',
+                options: [
+                    { text: 'Cái thước ê-ke', isCorrect: true },
+                    { text: 'Cái gọt bút chì', isCorrect: false },
+                    { text: 'Cục tẩy', isCorrect: false },
+                    { text: 'Quyển vở ô li', isCorrect: false }
+                ],
+                explanation: '"Set square" là chiếc thước ê-ke hình tam giác dùng trong môn Toán.'
+            },
+            {
+                subject: 'Tiếng Anh',
+                text: 'Choose the correct verb form: "Yesterday, my class ______ to the zoo."',
+                options: [
+                    { text: 'went', isCorrect: true },
+                    { text: 'go', isCorrect: false },
+                    { text: 'goes', isCorrect: false },
+                    { text: 'going', isCorrect: false }
+                ],
+                explanation: 'Có trạng từ "Yesterday" (hôm qua) nên câu chia ở thì Quá khứ đơn. Quá khứ của "go" là "went".'
+            },
+            {
+                subject: 'Tiếng Anh',
+                text: 'Choose the best reply: "Would you like to play badminton with me?"',
+                options: [
+                    { text: 'Yes, I’d love to.', isCorrect: true },
+                    { text: 'Yes, I am.', isCorrect: false },
+                    { text: 'No, I don’t.', isCorrect: false },
+                    { text: 'Yes, I did.', isCorrect: false }
+                ],
+                explanation: 'Để đồng ý một lời mời lịch sự "Would you like...?", ta đáp lại là "Yes, I’d love to." (Vâng, mình rất thích).'
+            },
+            {
+                subject: 'Tiếng Anh',
+                text: 'Complete the sentence: "She likes ______ projects with her classmates."',
+                options: [
+                    { text: 'doing', isCorrect: true },
+                    { text: 'do', isCorrect: false },
+                    { text: 'does', isCorrect: false },
+                    { text: 'did', isCorrect: false }
+                ],
+                explanation: 'Cụm từ cố định là "do projects" (làm dự án học tập). Sau "likes" ta thêm đuôi -ing thành "doing".'
+            },
+            {
+                subject: 'Tiếng Anh',
+                text: 'Choose the correct word: "Where ______ you last weekend?"',
+                options: [
+                    { text: 'were', isCorrect: true },
+                    { text: 'was', isCorrect: false },
+                    { text: 'are', isCorrect: false },
+                    { text: 'do', isCorrect: false }
+                ],
+                explanation: '"Last weekend" (cuối tuần trước) là thời gian ở quá khứ, đi với chủ ngữ "you" ta dùng động từ to-be "were".'
+            },
+            {
+                subject: 'Tiếng Anh',
+                text: 'What does "glue stick" mean in Vietnamese?',
+                options: [
+                    { text: 'Keo dán (hồ dán)', isCorrect: true },
+                    { text: 'Bút dạ quang', isCorrect: false },
+                    { text: 'Hộp bút chì màu', isCorrect: false },
+                    { text: 'Cái kéo', isCorrect: false }
+                ],
+                explanation: '"Glue stick" là thỏi keo dán giấy dùng trong giờ Thủ công hoặc Mỹ thuật.'
+            },
+            {
+                subject: 'Tiếng Anh',
+                text: 'Choose the grammatically CORRECT sentence:',
+                options: [
+                    { text: 'He doesn’t like singing.', isCorrect: true },
+                    { text: 'He don’t like singing.', isCorrect: false },
+                    { text: 'He doesn’t likes singing.', isCorrect: false },
+                    { text: 'He isn’t like singing.', isCorrect: false }
+                ],
+                explanation: 'Với chủ ngữ ngôi thứ ba số ít "He", câu phủ định ở thì hiện tại đơn dùng "doesn’t + động từ nguyên mẫu (like)".'
+            },
+            {
+                subject: 'Tiếng Anh',
+                text: 'Complete the dialogue: "Whose fairy tale book is this?" – "It’s ______."',
+                options: [
+                    { text: 'Minh’s', isCorrect: true },
+                    { text: 'Minh', isCorrect: false },
+                    { text: 'he', isCorrect: false },
+                    { text: 'him', isCorrect: false }
+                ],
+                explanation: 'Để nói đồ vật thuộc về ai đó, ta thêm dấu phẩy và chữ s (\'s) sau tên người: "Minh’s" (của Minh).'
+            },
+            {
+                subject: 'Tiếng Anh',
+                text: 'Choose the best word: "My school has a big ______ where we do experiments."',
+                options: [
+                    { text: 'science lab', isCorrect: true },
+                    { text: 'music room', isCorrect: false },
+                    { text: 'playground', isCorrect: false },
+                    { text: 'canteen', isCorrect: false }
+                ],
+                explanation: '"science lab" là phòng thí nghiệm khoa học, nơi học sinh thực hiện các thí nghiệm (do experiments).'
+            },
+            {
+                subject: 'Tiếng Anh',
+                text: 'Choose the correct preposition: "The clock is hanging ______ the bookcase."',
+                options: [
+                    { text: 'above', isCorrect: true },
+                    { text: 'in', isCorrect: false },
+                    { text: 'under', isCorrect: false },
+                    { text: 'between', isCorrect: false }
+                ],
+                explanation: '"above" nghĩa là ở phía trên (không chạm vào bề mặt), rất phù hợp cho đồng hồ treo tường phía trên tủ sách.'
+            }
+        ];
+
+        // =========================================================================
+        // GAME STATE
+        // =========================================================================
+        const TOTAL_QUESTIONS = 25;
+        const OPTION_LABELS = ['A', 'B', 'C', 'D'];
+        const HAPPY_PHRASES = [
+            'Tuyệt vời quá bạn ơi!',
+            'Xuất sắc luôn nè!',
+            'Bạn giỏi quá đi thôi!',
+            'Chuẩn không cần chỉnh!',
+            'Hoan hô thiên tài nhí!'
+        ];
+        const ENCOURAGE_PHRASES = [
+            'Cố lên bạn nhé!',
+            'Đọc kỹ giải thích nha!',
+            'Lần sau sẽ đúng nè!',
+            'Không sao, học tiếp nào!'
+        ];
+
+        let selectedQuestions = [];
+        let currentIndex = 0;
+        let score = 0;
+        let soundEnabled = true;
+
+        // =========================================================================
+        // WEB AUDIO API SOUND EFFECTS (No external URLs needed)
+        // =========================================================================
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        let audioCtx = null;
+
+        function ensureAudio() {
+            if (!soundEnabled) return;
+            try {
+                if (!audioCtx && AudioContextClass) {
+                    audioCtx = new AudioContextClass();
+                }
+                if (audioCtx && audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+            } catch (e) {
+                // Ignore audio errors on restricted devices
+            }
+        }
+
+        function playTone(freq, startTime, duration, type = 'sine', volume = 0.22) {
+            if (!audioCtx || !soundEnabled) return;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = type;
+            osc.frequency.setValueAtTime(freq, startTime);
+            gain.gain.setValueAtTime(0.001, startTime);
+            gain.gain.exponentialRampToValueAtTime(volume, startTime + 0.02);
+            gain.gain.exponentialRampToValueAtTime(0.001, startTime + duration);
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.start(startTime);
+            osc.stop(startTime + duration + 0.02);
+        }
+
+        function playSound(effect) {
+            if (!soundEnabled) return;
+            ensureAudio();
+            if (!audioCtx) return;
+
+            const now = audioCtx.currentTime;
+            if (effect === 'correct') {
+                // Cheerful rising chime arpeggio (C5 - E5 - G5 - C6)
+                playTone(523.25, now, 0.16, 'triangle', 0.25);
+                playTone(659.25, now + 0.08, 0.16, 'triangle', 0.25);
+                playTone(783.99, now + 0.16, 0.18, 'triangle', 0.26);
+                playTone(1046.5, now + 0.24, 0.35, 'sine', 0.28);
+            } else if (effect === 'wrong') {
+                // Gentle playful boing-boop downward
+                playTone(330, now, 0.18, 'triangle', 0.24);
+                playTone(233, now + 0.14, 0.30, 'sawtooth', 0.14);
+            } else if (effect === 'click') {
+                // Cute soft pop
+                playTone(580, now, 0.07, 'sine', 0.14);
+            } else if (effect === 'win') {
+                // Victory fanfare
+                const notes = [523.25, 659.25, 783.99, 1046.5, 783.99, 1046.5];
+                const times = [0, 0.1, 0.2, 0.32, 0.48, 0.6];
+                const durs  = [0.12, 0.12, 0.14, 0.18, 0.12, 0.45];
+                notes.forEach((n, i) => playTone(n, now + times[i], durs[i], 'triangle', 0.25));
+            }
+        }
+
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
+            const notes = document.getElementById('speaker-notes');
+            const muteLine = document.getElementById('speaker-mute-line');
+            if (soundEnabled) {
+                notes.classList.remove('hidden');
+                muteLine.classList.add('hidden');
+                playSound('click');
+            } else {
+                notes.classList.add('hidden');
+                muteLine.classList.remove('hidden');
+            }
+        }
+
+        // =========================================================================
+        // FISHER-YATES SHUFFLE
+        // =========================================================================
+        function shuffleArray(arr) {
+            const copy = [...arr];
+            for (let i = copy.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [copy[i], copy[j]] = [copy[j], copy[i]];
+            }
+            return copy;
+        }
+
+        // =========================================================================
+        // CORE GAME FLOW
+        // =========================================================================
+        function startGame() {
+            ensureAudio();
+            playSound('click');
+
+            // Randomly pick 25 questions out of the 50-question bank
+            selectedQuestions = shuffleArray(questionBank).slice(0, TOTAL_QUESTIONS);
+            currentIndex = 0;
+            score = 0;
+
+            // Toggle UI screens
+            document.getElementById('start-screen').classList.add('hidden');
+            document.getElementById('end-screen').classList.add('hidden');
+            document.getElementById('game-screen').classList.remove('hidden');
+            document.getElementById('top-hud').classList.remove('hidden');
+            document.getElementById('score-pill').classList.remove('hidden');
+            document.getElementById('score-pill').classList.add('flex');
+
+            updateScoreUI();
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            const q = selectedQuestions[currentIndex];
+            const qNum = currentIndex + 1;
+
+            // Update progress counter & star progress bar
+            document.getElementById('current-q-num').innerText = qNum;
+            const percent = Math.max(4, Math.round((qNum / TOTAL_QUESTIONS) * 100));
+            document.getElementById('progress-fill').style.width = `${percent}%`;
+            document.getElementById('progress-star').style.left = `${percent}%`;
+
+            // Subject badge styling
+            const badge = document.getElementById('subject-badge');
+            badge.innerText = `Môn ${q.subject} • Lớp 5`;
+            badge.className = 'px-3.5 py-1 rounded-full text-xs sm:text-sm font-extrabold uppercase tracking-wider mb-2.5 shadow-sm ';
+            if (q.subject === 'Toán') badge.classList.add('badge-toan');
+            else if (q.subject === 'Tiếng Việt') badge.classList.add('badge-tiengviet');
+            else badge.classList.add('badge-tienganh');
+
+            // Question text
+            document.getElementById('question-text').innerText = `Câu ${qNum}: ${q.text}`;
+
+            // Hide feedback box from previous question
+            document.getElementById('feedback-area').classList.add('hidden');
+
+            // Shuffle A/B/C/D options so child cannot memorize positions
+            const shuffledOptions = shuffleArray(q.options);
+            const container = document.getElementById('options-container');
+            container.innerHTML = '';
+
+            shuffledOptions.forEach((opt, idx) => {
+                const label = OPTION_LABELS[idx];
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.dataset.correct = opt.isCorrect ? 'true' : 'false';
+                btn.className = 'answer-btn w-full px-5 py-3.5 sm:py-4 text-left flex items-center justify-between gap-3 cursor-pointer';
+
+                btn.innerHTML = `
+                    <span class="text-base sm:text-lg md:text-xl font-extrabold leading-snug">
+                        <span class="text-[#d6336c] mr-1">${label}.</span> ${opt.text}
+                    </span>
+                    <span class="status-icon shrink-0 w-7 h-7 flex items-center justify-center"></span>
+                `;
+
+                btn.onclick = () => handleSelectOption(opt, btn);
+                container.appendChild(btn);
+            });
+        }
+
+        function handleSelectOption(chosenOption, chosenBtn) {
+            const allBtns = document.querySelectorAll('#options-container button');
+            allBtns.forEach(b => (b.disabled = true));
+
+            const q = selectedQuestions[currentIndex];
+            const isCorrect = chosenOption.isCorrect;
+
+            // SVG icons for checkmark and cross
+            const checkSVG = `
+                <svg class="w-8 h-8 text-[#159947] drop-shadow-sm animate-pop" viewBox="0 0 28 28" fill="none">
+                    <path d="M5 14.5 L11.5 21 L23.5 7.5" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>`;
+            const crossSVG = `
+                <svg class="w-7 h-7 text-[#e11d48] drop-shadow-sm animate-pop" viewBox="0 0 28 28" fill="none">
+                    <path d="M7 7 L21 21 M21 7 L7 21" stroke="currentColor" stroke-width="4.2" stroke-linecap="round"/>
+                </svg>`;
+
+            if (isCorrect) {
+                score++;
+                updateScoreUI();
+                chosenBtn.classList.add('correct');
+                chosenBtn.querySelector('.status-icon').innerHTML = checkSVG;
+                addSparklesToButton(chosenBtn);
+                playSound('correct');
+            } else {
+                chosenBtn.classList.add('wrong');
+                chosenBtn.querySelector('.status-icon').innerHTML = crossSVG;
+                playSound('wrong');
+
+                // Highlight the correct option so the child sees the right answer immediately
+                allBtns.forEach(b => {
+                    if (b.dataset.correct === 'true') {
+                        b.classList.add('correct');
+                        b.querySelector('.status-icon').innerHTML = checkSVG;
+                    }
+                });
+            }
+
+            showInlineFeedback(isCorrect, q.explanation);
+        }
+
+        function addSparklesToButton(btn) {
+            const sparkle = document.createElement('span');
+            sparkle.className = 'pointer-events-none absolute -top-2.5 -right-2 text-xl animate-sparkle';
+            sparkle.innerText = '✨';
+            btn.appendChild(sparkle);
+        }
+
+        function showInlineFeedback(isCorrect, explanation) {
+            const feedbackArea = document.getElementById('feedback-area');
+            const header = document.getElementById('feedback-header');
+            const expText = document.getElementById('feedback-explanation');
+            const dinoSpeech = document.getElementById('dino-speech');
+            const nextLabel = document.getElementById('next-btn-label');
+
+            // Update Dino face expression
+            const eyesHappy = document.getElementById('dino-eyes-happy');
+            const eyesEnc = document.getElementById('dino-eyes-encourage');
+            const mouthHappy = document.getElementById('dino-mouth-happy');
+            const mouthEnc = document.getElementById('dino-mouth-encourage');
+
+            if (isCorrect) {
+                header.innerHTML = `<span class="text-2xl">🎉</span> <span class="text-[#15803d]">CHÍNH XÁC RỒI!</span>`;
+                const phrase = HAPPY_PHRASES[Math.floor(Math.random() * HAPPY_PHRASES.length)];
+                dinoSpeech.childNodes[0].nodeValue = phrase + ' ';
+                eyesHappy.classList.remove('hidden');
+                mouthHappy.classList.remove('hidden');
+                eyesEnc.classList.add('hidden');
+                mouthEnc.classList.add('hidden');
+            } else {
+                header.innerHTML = `<span class="text-2xl">💡</span> <span class="text-[#be123c]">CHƯA ĐÚNG RỒI!</span>`;
+                const phrase = ENCOURAGE_PHRASES[Math.floor(Math.random() * ENCOURAGE_PHRASES.length)];
+                dinoSpeech.childNodes[0].nodeValue = phrase + ' ';
+                eyesHappy.classList.add('hidden');
+                mouthHappy.classList.add('hidden');
+                eyesEnc.classList.remove('hidden');
+                mouthEnc.classList.remove('hidden');
+            }
+
+            expText.innerHTML = `<span class="font-black text-[#4d1f28]">Giải thích:</span> ${explanation}`;
+            nextLabel.innerText = (currentIndex === TOTAL_QUESTIONS - 1) ? 'XEM KẾT QUẢ' : 'TIẾP TỤC';
+
+            feedbackArea.classList.remove('hidden');
+
+            // Smoothly scroll feedback into view on small mobile screens
+            setTimeout(() => {
+                feedbackArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 80);
+        }
+
+        function nextQuestion() {
+            playSound('click');
+            currentIndex++;
+            if (currentIndex < selectedQuestions.length) {
+                loadQuestion();
+            } else {
+                finishGame();
+            }
+        }
+
+        function updateScoreUI() {
+            document.getElementById('score-display').innerText = score;
+            document.getElementById('score-display-mobile').innerText = score;
+        }
+
+        function finishGame() {
+            document.getElementById('game-screen').classList.add('hidden');
+            document.getElementById('top-hud').classList.add('hidden');
+            document.getElementById('score-pill').classList.add('hidden');
+            document.getElementById('score-pill').classList.remove('flex');
+
+            const endScreen = document.getElementById('end-screen');
+            endScreen.classList.remove('hidden');
+            endScreen.classList.add('flex');
+
+            const percent = Math.round((score / TOTAL_QUESTIONS) * 100);
+            document.getElementById('final-score').innerText = score;
+            document.getElementById('final-accuracy').innerText = `Tỉ lệ chính xác: ${percent}%`;
+
+            const msg = document.getElementById('end-message');
+            if (score === TOTAL_QUESTIONS) {
+                msg.innerText = 'Đỉnh cao luôn! Bé đã nắm trọn kiến thức Tuần 11 Lớp 5 rồi đấy! 🌟';
+                playSound('win');
+                fireConfetti();
+            } else if (score >= 20) {
+                msg.innerText = 'Xuất sắc quá! Bé làm bài rất chắc tay, chỉ còn một xíu nữa là đạt điểm tuyệt đối!';
+                playSound('win');
+                fireConfetti();
+            } else if (score >= 13) {
+                msg.innerText = 'Khá giỏi lắm! Bé hãy chơi thêm một lượt nữa để ghi nhớ thật kỹ các câu còn nhầm nhé!';
+                playSound('correct');
+            } else {
+                msg.innerText = 'Cố gắng lên bé ơi! Làm lại một vòng mới và đọc kỹ phần giải thích sẽ tiến bộ cực nhanh đó!';
+            }
+        }
+
+        // =========================================================================
+        // CONFETTI CELEBRATION
+        // =========================================================================
+        function fireConfetti() {
+            const canvas = document.getElementById('confetti-canvas');
+            canvas.classList.remove('hidden');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const colors = ['#ff7eb3', '#ffd166', '#86efac', '#93c5fd', '#d8b4fe', '#fb7185'];
+            const pieces = Array.from({ length: 120 }, () => ({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height - canvas.height,
+                w: Math.random() * 12 + 6,
+                h: Math.random() * 10 + 6,
+                color: colors[Math.floor(Math.random() * colors.length)],
+                vy: Math.random() * 3.5 + 2.2,
+                vx: Math.random() * 4 - 2,
+                rot: Math.random() * 360,
+                rotSpeed: Math.random() * 8 - 4
+            }));
+
+            function render() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                let anyVisible = false;
+                for (const p of pieces) {
+                    p.y += p.vy;
+                    p.x += p.vx;
+                    p.rot += p.rotSpeed;
+                    if (p.y < canvas.height + 20) anyVisible = true;
+                    ctx.save();
+                    ctx.translate(p.x, p.y);
+                    ctx.rotate((p.rot * Math.PI) / 180);
+                    ctx.fillStyle = p.color;
+                    ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+                    ctx.restore();
+                }
+                if (anyVisible) {
+                    requestAnimationFrame(render);
+                } else {
+                    canvas.classList.add('hidden');
+                }
+            }
+            render();
+        }
+
+        window.addEventListener('resize', () => {
+            const canvas = document.getElementById('confetti-canvas');
+            if (!canvas.classList.contains('hidden')) {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+        });
+    </script>
+</body>
+</html>
